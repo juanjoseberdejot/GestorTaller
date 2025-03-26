@@ -10,15 +10,14 @@ public class app {
         String contraseñaEmpleado = "soy un empleado";
         System.out.println("Contraseña: ");
         contraseñaIntroducida = sc.nextLine();
-        sc.next();
 
         float dineroActual = 1000;
 
         int opcion;
 
-        if(contraseñaEmpleado.equals(contraseñaIntroducida)) {
+        if(contraseñaIntroducida.equals(contraseñaEmpleado)) {
             //Menu Empleado
-            System.out.println("Flujo de caja: "+ dineroActual);
+            System.out.println("Flujo de caja: " + dineroActual + "€");
             System.out.println("1. Inventario");
             System.out.println("2. Vehiculos");
             System.out.println("3. Tienda");
@@ -26,7 +25,7 @@ public class app {
             System.out.println("5. Asignaciones");
             System.out.println("6. Salir");
             opcion = sc.nextInt();
-
+            
             //Metodos Menu Empleado
             do{
                 switch(opcion){
