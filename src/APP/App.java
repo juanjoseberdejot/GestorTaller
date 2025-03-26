@@ -1,4 +1,4 @@
-package GestorTaller.src.APP;
+package GestorTaller.src.app;
 import java.util.Scanner;
 
 public class App {
