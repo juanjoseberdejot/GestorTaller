@@ -1,10 +1,11 @@
-package GestorTaller.Taller;
+package GestorTaller.src.APP;
 import java.util.Scanner;
 
-public class app {
+public class App {
     public static void main (String[]args) {
 
         Scanner sc = new Scanner(System.in);
+        Taller taller = new Taller();
 
         String contraseñaIntroducida;
         String contraseñaEmpleado = "soy un empleado";
@@ -15,22 +16,23 @@ public class app {
 
         int opcion;
 
-        if(contraseñaIntroducida.equals(contraseñaEmpleado)) {
-            //Menu Empleado
-            System.out.println("Flujo de caja: " + dineroActual + "€");
-            System.out.println("1. Inventario");
-            System.out.println("2. Vehiculos");
-            System.out.println("3. Tienda");
-            System.out.println("4. Clientes");
-            System.out.println("5. Asignaciones");
-            System.out.println("6. Salir");
-            opcion = sc.nextInt();
+        if (contraseñaIntroducida.equals(contraseñaEmpleado)) {        
             
-            //Metodos Menu Empleado
-            do{
+            do {
+                //Menu Empleado
+                System.out.println("Flujo de caja: " + dineroActual + "€");
+                System.out.println("1. Inventario");
+                System.out.println("2. Vehiculos");
+                System.out.println("3. Tienda");
+                System.out.println("4. Clientes");
+                System.out.println("5. Asignaciones");
+                System.out.println("6. Salir");
+                opcion = sc.nextInt();
+
+                //Metodos Menu Empleado
                 switch(opcion){
                     case 1 -> {
-                        //inventario();
+                        taller.mostrarInventario();
                     }
                     case 2 -> {
                         //vehiculos();
@@ -44,18 +46,23 @@ public class app {
                     case 5 -> {
                         //Asignaciones();
                     }
+                    case 6 -> {
+                        //Salir();
+                    }
                 }
             }while(opcion != 6);
+
         } else {
-            //Menu Cliente
-            System.out.println("1. Crear peticion");
-            System.out.println("2. Ver estado peticion");
-            System.out.println("3. Presupuestos");
-            System.out.println("4. Reclamaciones");
-            System.out.println("5. Salir");
-            opcion = sc.nextInt();    
-            //Metodos Menu Cliente
-            do{
+            
+            do {
+                //Menu Cliente
+                System.out.println("1. Crear peticion");
+                System.out.println("2. Ver estado peticion");
+                System.out.println("3. Presupuestos");
+                System.out.println("4. Reclamaciones");
+                System.out.println("5. Salir");
+                opcion = sc.nextInt();    
+                //Metodos Menu Cliente
                 switch(opcion){
                     case 1 -> {
                         //crearPeticion();
@@ -68,6 +75,9 @@ public class app {
                     }
                     case 4 -> {
                         //Reclamaciones();
+                    }
+                    case 5 -> {
+                        //Salir();
                     }
                 }
             }while(opcion != 5);
