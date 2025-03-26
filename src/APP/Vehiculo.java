@@ -1,4 +1,4 @@
-package GestorTaller.src.app;
+package GestorTaller.src.APP;
 
 public class Vehiculo {
     
@@ -12,6 +12,15 @@ public class Vehiculo {
         this.id_cliente = id_cliente;
         this.marca = marca;
 
+    }
+
+    public String getMatricula() {
+        return this.matricula;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehiculo [Matricula: " + matricula + ", ID Cliente: " + id_cliente + ", Marca: " + marca + "]";
     }
 
 }

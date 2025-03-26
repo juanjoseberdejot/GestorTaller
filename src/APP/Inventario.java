@@ -1,4 +1,4 @@
-package GestorTaller.src.app.Inventario;
+package GestorTaller.src.APP;
 
 public class Inventario {
     

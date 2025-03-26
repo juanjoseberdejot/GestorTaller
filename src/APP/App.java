@@ -1,4 +1,4 @@
-package GestorTaller.src.app;
+package GestorTaller.src.APP;
 import java.util.Scanner;
 
 public class App {
@@ -35,7 +35,7 @@ public class App {
                         taller.mostrarInventario();
                     }
                     case 2 -> {
-                        //vehiculos();
+                        taller.vehiculos();
                     }
                     case 3 -> {
                         //tienda();
