@@ -1,12 +1,14 @@
 package GestorTaller.src.APP;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Taller {
     
-    ArrayList<String> herramientas = new ArrayList<>();
-    ArrayList<String> piezas = new ArrayList<>();
+    ArrayList<Producto> productos = new ArrayList<>();
     ArrayList<Vehiculo> vehiculos = new ArrayList<>();
+
     Scanner sc = new Scanner(System.in);
 
     int opcion;
@@ -30,7 +32,7 @@ public class Taller {
                         opcion = 4;
                     } else {
                         System.out.println("Inventario herramientas: ");
-                        for (String herramienta : herramientas) {
+                        for (Producto herramienta : this.herramientas) {
                             System.out.println(herramienta);
                         }
                     }
@@ -44,7 +46,7 @@ public class Taller {
                         opcion = 4;
                     } else {
                         System.out.println("Inventario piezas: ");
-                        for (String pieza : piezas) {
+                        for (Producto pieza : this.piezas) {
                             System.out.println(pieza);
                         }
                     }
@@ -58,10 +60,10 @@ public class Taller {
                         opcion = 4;
                     } else {
                         System.out.println("Inventario completo: ");
-                        for (String pieza : piezas) {
+                        for (Producto pieza : this.piezas) {
                             System.out.println(pieza);
                         }
-                        for (String herramienta : herramientas) {
+                        for (Producto herramienta : this.herramientas) {
                             System.out.println(herramienta);
                         }
                     }
@@ -95,7 +97,7 @@ public class Taller {
                 System.out.println("Introduce la matricula del vehiculo: ");
                 String matricula = sc.nextLine();
 
-                for (Vehiculo vehiculo : vehiculos) {
+                for (Vehiculo vehiculo : this.vehiculos) {
                     if (vehiculo.getMatricula().equals(matricula)) {
                         System.out.println("Coche ya añadido");
                         enxiste = true;
@@ -147,7 +149,7 @@ public class Taller {
                     System.out.println("Introduce la matricula del vehiculo: ");
                     String matriculaABorrar = sc.nextLine();
                     
-                    for (Vehiculo vehiculo : vehiculos) {
+                    for (Vehiculo vehiculo : this.vehiculos) {
 
                         if (vehiculo.getMatricula().equals(matriculaABorrar)) {
                             vehiculos.remove(vehiculo);
@@ -174,7 +176,7 @@ public class Taller {
                     opcion = 4;
                 } else {
                     System.out.println("Coches en taller: ");
-                    for (Vehiculo coche : vehiculos) {
+                    for (Vehiculo coche : this.vehiculos) {
                         System.out.println(coche);
                     }
                 }
@@ -187,5 +189,27 @@ public class Taller {
 
             }
         }
+    }
+
+    public void tienda() {
+
+        productos.add(new Producto("Ruedas coche", 1, 50));
+        productos.add(new Producto("Bujia", 1, 15));
+        productos.add(new Producto("Destornillador", 2, 20));
+        productos.add(new Producto("Llave inglesa", 2, 25));
+        productos.add(new Producto("Aceite", 1, 10));
+        productos.add(new Producto("Tornillos", 1, 5));
+        productos.add(new Producto("Filtro", 1, 30));
+        productos.add(new Producto("Pintura", 1, 40));
+        productos.add(new Producto("Gafas protec.", 1, 8));
+        productos.add(new Producto("Motor", 1, 150));
+
+        do { 
+            
+            System.out.println("Flujo de caja: " + dineroActual + "€");
+
+
+
+        } while ();
     }
 }

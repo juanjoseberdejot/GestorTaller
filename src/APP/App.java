@@ -12,8 +12,6 @@ public class App {
         System.out.println("Contraseña: ");
         contraseñaIntroducida = sc.nextLine();
 
-        float dineroActual = 1000;
-
         int opcion;
 
         if (contraseñaIntroducida.equals(contraseñaEmpleado)) {        
