@@ -1,5 +1,4 @@
-package GestorTaller.src.APP;
-
+package model;
 public class Producto {
     
     private String nombre;

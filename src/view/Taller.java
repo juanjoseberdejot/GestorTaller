@@ -1,12 +1,16 @@
-package GestorTaller.src.APP;
+package view;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import model.Producto;
+import model.Vehiculo;
+
 public class Taller {
     
-    ArrayList<Producto> productos = new ArrayList<>();
+    ArrayList<Producto> productosInventario = new ArrayList<>();
+    ArrayList<Producto> productosTienda = new ArrayList<>();
     ArrayList<Vehiculo> vehiculos = new ArrayList<>();
 
     Scanner sc = new Scanner(System.in);
@@ -27,12 +31,13 @@ public class Taller {
 
                 case 1 -> {
 
-                    if (herramientas.isEmpty()) {
+                    if (productosInventario.isEmpty()) {
                         System.out.println("Inventario vacio (Puede comprar mas articulos en el apartado -Tienda-)");
                         opcion = 4;
                     } else {
                         System.out.println("Inventario herramientas: ");
-                        for (Producto herramienta : this.herramientas) {
+                        for (Producto herramienta : this.productosInventario) {
+                            //falta if
                             System.out.println(herramienta);
                         }
                     }
@@ -41,12 +46,13 @@ public class Taller {
 
                 case 2 -> {
 
-                    if (piezas.isEmpty()) {
+                    if (productosInventario.isEmpty()) {
                         System.out.println("Inventario vacio (Puede comprar mas articulos en el apartado -Tienda-)");
                         opcion = 4;
                     } else {
                         System.out.println("Inventario piezas: ");
-                        for (Producto pieza : this.piezas) {
+                        for (Producto pieza : this.productosInventario) {
+                            //falta if
                             System.out.println(pieza);
                         }
                     }
@@ -55,16 +61,13 @@ public class Taller {
 
                 case 3 -> {
 
-                    if (piezas.isEmpty() && herramientas.isEmpty()) {
+                    if (productosInventario.isEmpty()) {
                         System.out.println("Inventario vacio (Puede comprar mas articulos en el apartado -Tienda-)");
                         opcion = 4;
                     } else {
                         System.out.println("Inventario completo: ");
-                        for (Producto pieza : this.piezas) {
-                            System.out.println(pieza);
-                        }
-                        for (Producto herramienta : this.herramientas) {
-                            System.out.println(herramienta);
+                        for (Producto producto : this.productosInventario) {
+                            System.out.println(producto);
                         }
                     }
 
@@ -193,23 +196,25 @@ public class Taller {
 
     public void tienda() {
 
-        productos.add(new Producto("Ruedas coche", 1, 50));
-        productos.add(new Producto("Bujia", 1, 15));
-        productos.add(new Producto("Destornillador", 2, 20));
-        productos.add(new Producto("Llave inglesa", 2, 25));
-        productos.add(new Producto("Aceite", 1, 10));
-        productos.add(new Producto("Tornillos", 1, 5));
-        productos.add(new Producto("Filtro", 1, 30));
-        productos.add(new Producto("Pintura", 1, 40));
-        productos.add(new Producto("Gafas protec.", 1, 8));
-        productos.add(new Producto("Motor", 1, 150));
+        productosTienda.add(new Producto("Ruedas coche", 1, 50));
+        productosTienda.add(new Producto("Bujia", 1, 15));
+        productosTienda.add(new Producto("Destornillador", 2, 20));
+        productosTienda.add(new Producto("Llave inglesa", 2, 25));
+        productosTienda.add(new Producto("Aceite", 1, 10));
+        productosTienda.add(new Producto("Tornillos", 1, 5));
+        productosTienda.add(new Producto("Filtro", 1, 30));
+        productosTienda.add(new Producto("Pintura", 1, 40));
+        productosTienda.add(new Producto("Gafas protec.", 1, 8));
+        productosTienda.add(new Producto("Motor", 1, 150));
 
-        do { 
+        // do { 
             
-            System.out.println("Flujo de caja: " + dineroActual + "€");
+        //     System.out.println("Flujo de caja: " + dineroActual + "€");
+            
+        //     for (Producto producto : this.productosTienda) {
+        //         System.out.println(producto);
+        //     }
 
-
-
-        } while ();
+        // } while ();
     }
 }

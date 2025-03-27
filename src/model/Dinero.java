@@ -1,8 +1,7 @@
-package GestorTaller.src.APP;
-
+package model;
 public class Dinero {
     
-    private float dinero = 1000;
+    private float dinero;
 
     public Dinero(float dinero) {
 
@@ -14,9 +13,5 @@ public class Dinero {
         
         return this.dinero;
 
-    }
-
-    public void setDinero(float dineroActual) {
-        this.dinero = dineroActual;
     }
 }

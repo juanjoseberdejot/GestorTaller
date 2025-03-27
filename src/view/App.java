@@ -1,16 +1,30 @@
-package GestorTaller.src.APP;
+package view;
+import java.sql.Connection;
 import java.util.Scanner;
+
+import dao.ConexionBD;
+import model.Dinero;
 
 public class App {
     public static void main (String[]args) {
 
+        // Verificar conexion con base de datos
+        Connection conexion = ConexionBD.conectar();
+        if (conexion != null) {
+            System.out.println("Conexión establecida correctamente.");
+        } else {
+            System.out.println("No se pudo establecer la conexión.");
+        }
+
         Scanner sc = new Scanner(System.in);
         Taller taller = new Taller();
+        Dinero dinero = new Dinero(1000);
+        
+        float dineroActual = dinero.getDineroActual();
 
-        String contraseñaIntroducida;
         String contraseñaEmpleado = "soy un empleado";
         System.out.println("Contraseña: ");
-        contraseñaIntroducida = sc.nextLine();
+        String contraseñaIntroducida = sc.nextLine();
 
         int opcion;
 
@@ -26,6 +40,7 @@ public class App {
                 System.out.println("5. Asignaciones");
                 System.out.println("6. Salir");
                 opcion = sc.nextInt();
+                sc.nextLine();
 
                 //Metodos Menu Empleado
                 switch(opcion){
@@ -45,7 +60,7 @@ public class App {
                         //Asignaciones();
                     }
                     case 6 -> {
-                        //Salir();
+                        System.out.println("Adios..");
                     }
                 }
             }while(opcion != 6);
@@ -59,7 +74,9 @@ public class App {
                 System.out.println("3. Presupuestos");
                 System.out.println("4. Reclamaciones");
                 System.out.println("5. Salir");
-                opcion = sc.nextInt();    
+                opcion = sc.nextInt();  
+                sc.nextLine();
+
                 //Metodos Menu Cliente
                 switch(opcion){
                     case 1 -> {
@@ -75,7 +92,7 @@ public class App {
                         //Reclamaciones();
                     }
                     case 5 -> {
-                        //Salir();
+                        System.out.println("Adios..");
                     }
                 }
             }while(opcion != 5);
