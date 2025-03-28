@@ -6,9 +6,9 @@ import java.sql.SQLException;
 public class ConexionBD {
 
     // URL de conexión a la base de datos MySQL
-    private static final String URL = "jdbc:mysql://localhost:3306/mi_base_de_datos"; // Cambia el nombre de la base de datos
-    private static final String USUARIO = "root"; // Nombre de usuario de MySQL
-    private static final String CONTRASENA = "mi_contrasena"; // Contraseña del usuario de MySQL
+    private static final String URL = "jdbc:mysql://127.0.0.1:3306/Taller?useSSL=false&serverTimezone=UTC"; // Cambia el nombre de la base de datos
+    private static final String USUARIO = "usuario1"; // Nombre de usuario de MySQL
+    private static final String CONTRASENA = "1234"; // Contraseña del usuario de MySQL
 
     // Método para establecer la conexión con la base de datos
     public static Connection conectar() {

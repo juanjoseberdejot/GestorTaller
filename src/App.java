@@ -1,8 +1,11 @@
-package view;
+
+
+import view.Taller;
+import dao.ConexionBD;
+
 import java.sql.Connection;
 import java.util.Scanner;
 
-import dao.ConexionBD;
 import model.Dinero;
 
 public class App {

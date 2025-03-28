@@ -1,0 +1,9 @@
+# Excluir archivos .class solo en estas rutas
+bin/dao/*.class
+bin/model/*.class
+bin/view/*.class
+
+# Opcional: Excluir subdirectorios recursivamente (si existen)
+bin/dao/**/*.class
+bin/model/**/*.class
+bin/view/**/*.class
