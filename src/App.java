@@ -14,11 +14,13 @@ import model.Dinero;
 public class App {
     public static void main (String[]args) {
 
+        String rutaArchivoSQL = "C:/Users/JuanJoséBerdejoTenor/Desktop/Programacion/Taller/GestorTaller/src/dao/MySQL-Taller.sql";
+
         // Verificar conexion con base de datos y llamada a la seed
         try (Connection conexion = ConexionDB.conectar()) {
             if (conexion != null) {
                 System.out.println("Conexión establecida correctamente.");
-                SeedDatabase.inicializarSeed(conexion, "seed.sql"); // Llamada a la seed
+                SeedDatabase.inicializarSeed(conexion, rutaArchivoSQL); // Llamada a la seed
             } else {
                 System.out.println("No se pudo establecer la conexión.");
             }

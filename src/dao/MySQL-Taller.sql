@@ -1,9 +1,3 @@
--- Crear la base de datos Taller
-CREATE DATABASE Taller;
-
--- Usar la base de datos Taller
-USE Taller;
-
 -- Tabla Clientes
 CREATE TABLE Clientes (
     DNI VARCHAR(20) PRIMARY KEY,
@@ -11,6 +5,15 @@ CREATE TABLE Clientes (
     Apellido VARCHAR(50),
     Telefono VARCHAR(20),
     CantidadCompras INT
+);
+
+-- Tabla Inventario
+CREATE TABLE Inventario (
+    ID INT PRIMARY KEY,
+    Nombre VARCHAR(100),
+    Categoria int,
+    Precio DECIMAL(10, 2),
+    Cantidad int
 );
 
 -- Tabla Tienda

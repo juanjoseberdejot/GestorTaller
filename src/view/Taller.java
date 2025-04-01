@@ -38,11 +38,11 @@ public class Taller {
     private String obtenerConsultaInventario(int opcion) {
         switch (opcion) {
             case 1:
-                return "SELECT * FROM Tienda WHERE Categoria = 1";
+                return "SELECT * FROM Inventario WHERE Categoria = 1";
             case 2:
-                return "SELECT * FROM Tienda WHERE Categoria = 2";
+                return "SELECT * FROM Inventario WHERE Categoria = 2";
             case 3:
-                return "SELECT * FROM Tienda";
+                return "SELECT * FROM Inventario";
             default:
                 return null;
         }

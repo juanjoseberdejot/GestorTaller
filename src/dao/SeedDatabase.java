@@ -11,19 +11,30 @@ import java.sql.Statement;
 public class SeedDatabase {
 
     public static void ejecutarSeed(Connection conexion, String rutaArchivoSQL) throws SQLException, IOException {
+        System.out.println("Intentando leer el archivo SQL desde: " + rutaArchivoSQL);
         try (BufferedReader lector = new BufferedReader(new FileReader(rutaArchivoSQL));
              Statement sentencia = conexion.createStatement()) {
-
+    
             String linea;
             StringBuilder sql = new StringBuilder();
-
+    
             while ((linea = lector.readLine()) != null) {
-                sql.append(linea);
-                if (linea.endsWith(";")) {
-                    sentencia.executeUpdate(sql.toString());
-                    sql.setLength(0); // Limpiar el StringBuilder
+                sql.append(linea).append(" ");
+                if (linea.trim().endsWith(";")) {
+                    String instruccionSQL = sql.toString().trim();
+                    System.out.println("Ejecutando SQL: " + instruccionSQL);
+                    try {
+                        sentencia.execute(instruccionSQL);
+                    } catch (SQLException e) {
+                        System.err.println("Error ejecutando SQL: " + instruccionSQL);
+                        e.printStackTrace();
+                    }
+                    sql.setLength(0); // Limpiar el StringBuilder para la siguiente instrucción
                 }
             }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo SQL: " + e.getMessage());
+            throw e;
         }
     }
 
@@ -36,7 +47,7 @@ public class SeedDatabase {
             resultado.next();
             int contador = resultado.getInt(1);
 
-            if (contador == 0) {
+            // if (contador == 0) {
                 // El seed no se ha ejecutado, ejecutarlo
                 ejecutarSeed(conexion, rutaArchivoSQL);
 
@@ -45,9 +56,9 @@ public class SeedDatabase {
                 sentencia.executeUpdate("INSERT INTO seed_ejecutado VALUES (1)");
 
                 System.out.println("Datos de seed insertados con éxito.");
-            } else {
-                System.out.println("El seed ya se ha ejecutado.");
-            }
+            // } else {
+                //System.out.println("El seed ya se ha ejecutado.");
+            // }
 
         } catch (SQLException | IOException e) {
             e.printStackTrace();
