@@ -1,10 +1,12 @@
-package main;
+
 
 
 import view.Taller;
-import dao.ConexionBD;
+import dao.ConexionDB;
+import dao.SeedDatabase;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import model.Dinero;
@@ -12,13 +14,18 @@ import model.Dinero;
 public class App {
     public static void main (String[]args) {
 
-        // Verificar conexion con base de datos
-        Connection conexion = ConexionBD.conectar();
-        if (conexion != null) {
-            System.out.println("Conexión establecida correctamente.");
-        } else {
-            System.out.println("No se pudo establecer la conexión.");
+        // Verificar conexion con base de datos y llamada a la seed
+        try (Connection conexion = ConexionDB.conectar()) {
+            if (conexion != null) {
+                System.out.println("Conexión establecida correctamente.");
+                SeedDatabase.inicializarSeed(conexion, "seed.sql"); // Llamada a la seed
+            } else {
+                System.out.println("No se pudo establecer la conexión.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
 
         Scanner sc = new Scanner(System.in);
         Taller taller = new Taller();

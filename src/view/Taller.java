@@ -1,220 +1,130 @@
 package view;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
+import java.sql.*;
 import java.util.Scanner;
 
-import model.Producto;
-import model.Vehiculo;
+import dao.ConexionDB;
 
 public class Taller {
-    
-    ArrayList<Producto> productosInventario = new ArrayList<>();
-    ArrayList<Producto> productosTienda = new ArrayList<>();
-    ArrayList<Vehiculo> vehiculos = new ArrayList<>();
 
     Scanner sc = new Scanner(System.in);
-
     int opcion;
 
     public void mostrarInventario() {
-
         do {
-
             System.out.println("1. Herramientas");
             System.out.println("2. Piezas");
             System.out.println("3. Todo");
             System.out.println("4. Salir");
             opcion = sc.nextInt();
 
-            switch(opcion){
+            try (Connection conexion = ConexionDB.conectar();
+                 PreparedStatement sentencia = conexion.prepareStatement(obtenerConsultaInventario(opcion));
+                 ResultSet resultados = sentencia.executeQuery()) {
 
-                case 1 -> {
-
-                    if (productosInventario.isEmpty()) {
-                        System.out.println("Inventario vacio (Puede comprar mas articulos en el apartado -Tienda-)");
-                        opcion = 4;
-                    } else {
-                        System.out.println("Inventario herramientas: ");
-                        for (Producto herramienta : this.productosInventario) {
-                            //falta if
-                            System.out.println(herramienta);
-                        }
-                    }
-
+                while (resultados.next()) {
+                    System.out.println("ID: " + resultados.getInt("ID"));
+                    System.out.println("Nombre: " + resultados.getString("Nombre"));
+                    System.out.println("Categoría: " + resultados.getInt("Categoria"));
+                    System.out.println("Precio: " + resultados.getDouble("Precio"));
                 }
-
-                case 2 -> {
-
-                    if (productosInventario.isEmpty()) {
-                        System.out.println("Inventario vacio (Puede comprar mas articulos en el apartado -Tienda-)");
-                        opcion = 4;
-                    } else {
-                        System.out.println("Inventario piezas: ");
-                        for (Producto pieza : this.productosInventario) {
-                            //falta if
-                            System.out.println(pieza);
-                        }
-                    }
-
-                }
-
-                case 3 -> {
-
-                    if (productosInventario.isEmpty()) {
-                        System.out.println("Inventario vacio (Puede comprar mas articulos en el apartado -Tienda-)");
-                        opcion = 4;
-                    } else {
-                        System.out.println("Inventario completo: ");
-                        for (Producto producto : this.productosInventario) {
-                            System.out.println(producto);
-                        }
-                    }
-
-                }
-
-                case 4 -> {
-
-                    System.out.println("Atras..");
-
-                }
-
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } while(opcion != 4);
+
+        } while (opcion != 4);
+    }
+
+    private String obtenerConsultaInventario(int opcion) {
+        switch (opcion) {
+            case 1:
+                return "SELECT * FROM Tienda WHERE Categoria = 1";
+            case 2:
+                return "SELECT * FROM Tienda WHERE Categoria = 2";
+            case 3:
+                return "SELECT * FROM Tienda";
+            default:
+                return null;
+        }
     }
 
     public void vehiculos() {
-
         System.out.println("1. Añadir vehiculo al taller");
         System.out.println("2. Sacar vehiculo del taller");
         System.out.println("3. Ver vehiculos");
         opcion = sc.nextInt();
         sc.nextLine();
 
-        switch(opcion) {
-
-            case 1 -> {
-                
-                boolean enxiste = false;
-
-                System.out.println("Introduce la matricula del vehiculo: ");
-                String matricula = sc.nextLine();
-
-                for (Vehiculo vehiculo : this.vehiculos) {
-                    if (vehiculo.getMatricula().equals(matricula)) {
-                        System.out.println("Coche ya añadido");
-                        enxiste = true;
-                    }
-                }
-                
-                if (enxiste) {
-                    break;
-                }
-
-                if (matricula.isEmpty()) {
-                    System.out.println("La matrícula no puede estar vacía.");
-                    break;
-                }
-
-                System.out.println("Introduce el id del cliente propietario del vehiculo: ");
-                int id_cliente = sc.nextInt();
-                sc.nextLine();
-
-                if (id_cliente <= 0) {
-                    System.out.println("La id del cliente propietario del vehiculo no puede estar vacía.");
-                    break;
-                }
-
-                System.out.println("Introduce la marca del vehiculo: ");
-                String marca = sc.nextLine();
-
-                if (marca.isEmpty()) {
-                    System.out.println("La marca del vehiculo no puede estar vacía.");
-                    break;
-                }
-
-                Vehiculo vehiculo = new Vehiculo(matricula, id_cliente, marca);
-
-                vehiculos.add(vehiculo);
-
-            }
-
-            case 2 -> {
-
-                boolean borrado = false;
-
-                if (vehiculos.isEmpty()) {
-
-                    System.out.println("No hay nada que eliminar");
-                    break;
-                } else {
-
-                    System.out.println("Introduce la matricula del vehiculo: ");
-                    String matriculaABorrar = sc.nextLine();
-                    
-                    for (Vehiculo vehiculo : this.vehiculos) {
-
-                        if (vehiculo.getMatricula().equals(matriculaABorrar)) {
-                            vehiculos.remove(vehiculo);
-                            borrado = true;
-                            break;
-                        }
-                    }
-
-                    if (borrado == true) {
-                        System.out.println("Vehiculo borrado con exito");
-                    } else {
-                        System.out.println("No se encontro esa matricula");
-                        break;
-                    }
-
-                }
-
-            }
-
-            case 3 -> {
-
-                if (vehiculos.isEmpty()) {
-                    System.out.println("Taller vacio");
-                    opcion = 4;
-                } else {
-                    System.out.println("Coches en taller: ");
-                    for (Vehiculo coche : this.vehiculos) {
-                        System.out.println(coche);
-                    }
-                }
-
-            }
-
-            case 4 -> {
-
+        switch (opcion) {
+            case 1:
+                añadirVehiculo();
+                break;
+            case 2:
+                sacarVehiculo();
+                break;
+            case 3:
+                verVehiculos();
+                break;
+            case 4:
                 System.out.println("Atras..");
+                break;
+        }
+    }
 
+    private void añadirVehiculo() {
+        System.out.println("Introduce la matricula del vehiculo: ");
+        String matricula = sc.nextLine();
+
+        System.out.println("Introduce el id del cliente propietario del vehiculo: ");
+        String id_cliente = sc.nextLine();
+
+        System.out.println("Introduce la marca del vehiculo: ");
+        String marca = sc.nextLine();
+
+        try (Connection conexion = ConexionDB.conectar();
+             PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO Vehiculos (Matricula, DNI_Cliente, Marca) VALUES (?, ?, ?)")) {
+            sentencia.setString(1, matricula);
+            sentencia.setString(2, id_cliente);
+            sentencia.setString(3, marca);
+            sentencia.executeUpdate();
+            System.out.println("Vehiculo añadido con exito.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sacarVehiculo() {
+        System.out.println("Introduce la matricula del vehiculo a borrar: ");
+        String matriculaABorrar = sc.nextLine();
+        try (Connection conexion = ConexionDB.conectar();
+             PreparedStatement sentencia = conexion.prepareStatement("DELETE FROM Vehiculos WHERE Matricula = ?")) {
+            sentencia.setString(1, matriculaABorrar);
+            int filasAfectadas = sentencia.executeUpdate();
+            if (filasAfectadas > 0) {
+                System.out.println("Vehiculo borrado con exito");
+            } else {
+                System.out.println("No se encontro esa matricula");
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void verVehiculos() {
+        try (Connection conexion = ConexionDB.conectar();
+             Statement sentencia = conexion.createStatement();
+             ResultSet resultados = sentencia.executeQuery("SELECT * FROM Vehiculos")) {
+            while (resultados.next()) {
+                System.out.println("Matricula: " + resultados.getString("Matricula") + ", Marca: " + resultados.getString("Marca") + ", id cliente: " + resultados.getString("DNI_Cliente"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
     public void tienda() {
-
-        productosTienda.add(new Producto("Ruedas coche", 1, 50));
-        productosTienda.add(new Producto("Bujia", 1, 15));
-        productosTienda.add(new Producto("Destornillador", 2, 20));
-        productosTienda.add(new Producto("Llave inglesa", 2, 25));
-        productosTienda.add(new Producto("Aceite", 1, 10));
-        productosTienda.add(new Producto("Tornillos", 1, 5));
-        productosTienda.add(new Producto("Filtro", 1, 30));
-        productosTienda.add(new Producto("Pintura", 1, 40));
-        productosTienda.add(new Producto("Gafas protec.", 1, 8));
-        productosTienda.add(new Producto("Motor", 1, 150));
-
-        // do { 
-            
-        //     System.out.println("Flujo de caja: " + dineroActual + "€");
-            
-        //     for (Producto producto : this.productosTienda) {
-        //         System.out.println(producto);
-        //     }
-
-        // } while ();
+        // Implementa la lógica para la tienda (consultas SQL para mostrar y comprar productos)
     }
 }
