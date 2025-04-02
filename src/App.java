@@ -1,9 +1,5 @@
-
-
-
 import view.Taller;
 import dao.ConexionDB;
-import dao.SeedDatabase;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -13,21 +9,6 @@ import model.Dinero;
 
 public class App {
     public static void main (String[]args) {
-
-        String rutaArchivoSQL = "C:/Users/JuanJoséBerdejoTenor/Desktop/Programacion/Taller/GestorTaller/src/dao/MySQL-Taller.sql";
-
-        // Verificar conexion con base de datos y llamada a la seed
-        try (Connection conexion = ConexionDB.conectar()) {
-            if (conexion != null) {
-                System.out.println("Conexión establecida correctamente.");
-                SeedDatabase.inicializarSeed(conexion, rutaArchivoSQL); // Llamada a la seed
-            } else {
-                System.out.println("No se pudo establecer la conexión.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
 
         Scanner sc = new Scanner(System.in);
         Taller taller = new Taller();
@@ -64,13 +45,13 @@ public class App {
                         taller.vehiculos();
                     }
                     case 3 -> {
-                        //tienda();
+                        taller.tienda();
                     }
                     case 4 -> {
-                        //clientes();
+                        taller.clientes();
                     }
                     case 5 -> {
-                        //Asignaciones();
+                        taller.asignacionesMecanicos();
                     }
                     case 6 -> {
                         System.out.println("Adios..");
@@ -93,7 +74,7 @@ public class App {
                 //Metodos Menu Cliente
                 switch(opcion){
                     case 1 -> {
-                        //crearPeticion();
+                        //solicitarCita();
                     }
                     case 2 -> {
                         //verEstadoPeticiones();
