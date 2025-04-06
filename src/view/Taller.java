@@ -7,8 +7,9 @@ import java.util.Scanner;
 public class Taller {
 
     Scanner sc = new Scanner(System.in);
-    int opcion;
 
+    int opcion;
+    
     public void mostrarInventario() {
         do {
             System.out.println("1. Herramientas");
@@ -34,7 +35,7 @@ public class Taller {
         } while (opcion != 4);
     }
 
-    private String obtenerConsultaInventario(int opcion) {
+    public String obtenerConsultaInventario(int opcion) {
         switch (opcion) {
             case 1:
                 return "SELECT * FROM Inventario WHERE Categoria = 1";
@@ -70,7 +71,7 @@ public class Taller {
         }
     }
 
-    private void añadirVehiculo() {
+    public void añadirVehiculo() {
         System.out.println("Introduce la matricula del vehiculo: ");
         String matricula = sc.nextLine();
 
@@ -107,7 +108,7 @@ public class Taller {
         }
     }
 
-    private void sacarVehiculo() {
+    public void sacarVehiculo() {
         System.out.println("Introduce la matricula del vehiculo a borrar: ");
         String matriculaABorrar = sc.nextLine();
         try (Connection conexion = ConexionDB.conectar();
@@ -125,7 +126,7 @@ public class Taller {
         }
     }
 
-    private void verVehiculos() {
+    public void verVehiculos() {
         try (Connection conexion = ConexionDB.conectar();
              Statement sentencia = conexion.createStatement();
              ResultSet resultados = sentencia.executeQuery("SELECT * FROM Vehiculos")) {

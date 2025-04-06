@@ -30,7 +30,7 @@ public class App {
                 //Metodos Menu Empleado
                 switch(opcion){
                     case 1 -> {
-                        taller.mostrarInventario();
+                        taller.inventario();
                     }
                     case 2 -> {
                         taller.vehiculos();

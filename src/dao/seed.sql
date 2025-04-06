@@ -45,7 +45,7 @@ INSERT IGNORE INTO Tienda (ID, Nombre, Categoria, Precio) VALUES
 -- Tabla Vehiculos
 CREATE TABLE IF NOT EXISTS Vehiculos (
     ID INT PRIMARY KEY AUTO_INCREMENT,
-    Matricula VARCHAR(20),
+    Matricula VARCHAR(20) UNIQUE,
     Marca VARCHAR(50),
     DNI_Cliente VARCHAR(20),
     EmpleadoAsignado VARCHAR(50),
